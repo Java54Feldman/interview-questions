@@ -29,4 +29,20 @@ public class InterviewQuestions {
 		}
 		return result;
 	}
+	static public boolean isSum2(int[] array, int sum) {
+		//TODO
+		//HashSet
+		//returns true if a given array contains two numbers, 
+		//the summing of which equals a given 'sum' value
+		//complexity O[N] only one pass over the elements
+		return false;
+		
+	}
+	static public int getMaxWithNegativePresentation(int[] array) {
+		//TODO
+		//returns maximal positive value for which exists negative one with the same abs value
+		//if no pair of positive and negative values with the same abs value the method returns -1
+		//complexity O[N] only one pass over the elements
+		return -1;
+	}
 }
