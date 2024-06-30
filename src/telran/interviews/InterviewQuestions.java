@@ -30,19 +30,37 @@ public class InterviewQuestions {
 		return result;
 	}
 	static public boolean isSum2(int[] array, int sum) {
-		//TODO
-		//HashSet
 		//returns true if a given array contains two numbers, 
 		//the summing of which equals a given 'sum' value
 		//complexity O[N] only one pass over the elements
-		return false;
+		boolean res = false;
+		HashSet<Integer> set = new HashSet<>();
+		for (int i = 0; i < array.length && !res; i++) {
+			if(set.contains(sum - array[i])) {
+				res = true;
+			} else {
+				set.add(array[i]);
+			}
+		}
+		return res;
 		
 	}
 	static public int getMaxWithNegativePresentation(int[] array) {
-		//TODO
 		//returns maximal positive value for which exists negative one with the same abs value
 		//if no pair of positive and negative values with the same abs value the method returns -1
 		//complexity O[N] only one pass over the elements
-		return -1;
+		int res = -1;
+		HashSet<Integer> set = new HashSet<>();
+		for (Integer number : array) {
+			if(number < 0) {
+				set.add(number);
+			} else {
+				if(set.contains(-number)) {
+					res = Math.max(res, number);
+				}
+			}
+		}
+		
+		return res;
 	}
 }
