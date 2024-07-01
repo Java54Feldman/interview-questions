@@ -8,38 +8,41 @@ import org.junit.jupiter.api.Test;
 import telran.interviews.MyArray;
 
 class MyArrayTest {
+	private static final int N_ELEMENTS = 100_000_000;
+	private static final Integer ALL_VALUES = 5;
+	MyArray<Integer> myArray;
 
-    MyArray<Integer> myArray;
+	@BeforeEach
+	void setUp() {
+		myArray = new MyArray<>(N_ELEMENTS);
 
-    @BeforeEach
-    void setUp() {
-        myArray = new MyArray<>(5);
-    }
+	}
 
-    @Test
-    void testSetAll() {
-        myArray.setAll(10);
-        for (int i = 0; i < 5; i++) {
-            assertEquals(10, myArray.get(i));
-        }
-    }
+	@Test
+	void setAllTest() {
+		runSetAllTest();
+	}
 
-    @Test
-    void testSet() {
-        myArray.set(0, 5);
-        assertEquals(5, myArray.get(0));
-        assertNull(myArray.get(1));
-    }
+	@Test
+	void setGetTest() {
+		int index = 10;
+		int value = 1000;
+		myArray.set(index, value);
+		assertEquals(value, myArray.get(index));
+		assertNull(myArray.get(index + 1));
+		assertThrowsExactly(ArrayIndexOutOfBoundsException.class, () -> myArray.set(-index, value));
+		assertThrowsExactly(ArrayIndexOutOfBoundsException.class, () -> myArray.set(N_ELEMENTS, value));
+		assertThrowsExactly(ArrayIndexOutOfBoundsException.class, () -> myArray.get(-index));
+		assertThrowsExactly(ArrayIndexOutOfBoundsException.class, () -> myArray.get(N_ELEMENTS));
+		runSetAllTest();
 
-    @Test
-    void testGet() {
-        myArray.set(0, 5);
-        myArray.set(1, 10);
-        assertEquals(5, myArray.get(0));
-        assertEquals(10, myArray.get(1));
-        assertNull(myArray.get(2));
-        assertThrows(ArrayIndexOutOfBoundsException.class, () -> myArray.get(-1));
-        assertThrows(ArrayIndexOutOfBoundsException.class, () -> myArray.get(5));
-    }
+	}
+
+	private void runSetAllTest() {
+		myArray.setAll(ALL_VALUES);
+		for (int i = 0; i < N_ELEMENTS; i++) {
+			assertEquals(ALL_VALUES, myArray.get(i));
+		}
+	}
 
 }
