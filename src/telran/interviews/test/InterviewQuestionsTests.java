@@ -9,11 +9,11 @@ class InterviewQuestionsTests {
 
 	@Test
 	void displayOccurrencesTest() {
-		String[] strings = {"b", "a", "bb", "aa", "lmn", "aa", "lmn", "lmn", "bb"};
+		String[] strings = {"b", "a","bb", "aa", "lmn", "aa", "lmn", "lmn", "bb"};
 		displayOccurrences(strings);
 		//Should be displayed out the following:
 		/*
-		 * lnm => 3
+		 * lmn => 3
 		 * aa => 2
 		 * a => 1
 		 * b => 1
@@ -21,16 +21,18 @@ class InterviewQuestionsTests {
 	}
 	@Test
 	void isSum2Test() {
-		int[] array = {-10, 2, 40, -30};
+		int [] array = {-10, 2, 40, -30};
 		assertTrue(isSum2(array, 30));
 		assertFalse(isSum2(array, 32));
 	}
 	@Test
-	void MaxPositiveWithNegativeTest() {
-		int[] array1 = {-200, 10, -10, 1, 2, 3, -3, 200};
-		int[] array2 = {-200, -200, 100, 10, 10};
+	void maxPositiveWithNegativeTest() {
+		int[] array1 = {200, 10, -10, 1, 2, 3, -3, -200};
+		int [] array2 = {-200, -200, 100, 10, 10};
+		int[] array3 = {-200, 10, -10, 1, 2, 3, -3, 200};
 		assertEquals(200, getMaxWithNegativePresentation(array1));
 		assertEquals(-1, getMaxWithNegativePresentation(array2));
+		assertEquals(200, getMaxWithNegativePresentation(array3));
 	}
 
 }
