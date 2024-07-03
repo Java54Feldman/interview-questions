@@ -6,18 +6,16 @@ import java.util.*;
 public class MyStackInt {
 	//Data Structure
 	LinkedList<Integer> stackList = new LinkedList<>();
-	int maxValue;
+	LinkedList<Integer> maxValueList = new LinkedList<>();
 	
 	public void push(int num) {
 		//adds number into top of stack (LIFO) - last element
-		if(isEmpty()) {
-			maxValue = num;
-		} else if(num > maxValue) {
-			maxValue = num;
-		}
+		if(maxValueList.isEmpty() || num > maxValueList.peekLast()) {
+			maxValueList.addLast(num);
+		} 
 		stackList.push(num);
 	}
-	public int pop() throws RuntimeException {
+	public int pop() {
 		//removes element from top of stack (last element)
 		//returns being removed number
 		//throws exception if the stack is empty
@@ -25,9 +23,12 @@ public class MyStackInt {
 			throw new RuntimeException("Stack is empty");
 		}
 		int value = stackList.pop();
+		if(maxValueList.peekLast() == value) {
+			maxValueList.removeLast();
+		}
 		return value;
 	}
-	public int peek() throws RuntimeException {
+	public int peek() {
 		//returns last number
 		//throws exception if the stack is empty
 		if(isEmpty()) {
@@ -44,7 +45,7 @@ public class MyStackInt {
 		if(isEmpty()) {
 			throw new RuntimeException("Stack is empty");
 		}
-		return maxValue;
+		return maxValueList.peekLast();
 	}
 	public int size() {
 		return stackList.size();

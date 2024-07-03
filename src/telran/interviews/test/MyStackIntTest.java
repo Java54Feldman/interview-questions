@@ -31,6 +31,7 @@ class MyStackIntTest {
 	public void popTest() {
 		assertEquals(3, stack.pop());
 		assertEquals(2, stack.size());
+		assertEquals(10, stack.pop());
 		assertThrows(RuntimeException.class, () -> emptyStack.pop());
 	}
 
@@ -51,6 +52,9 @@ class MyStackIntTest {
 	@Test
 	public void getMaxElementTest() {
 		assertEquals(10, stack.getMaxElement());
+		stack.pop();
+		stack.pop();
+		assertEquals(5, stack.getMaxElement());
 		assertThrows(RuntimeException.class, () -> emptyStack.getMaxElement());
 	}
 
