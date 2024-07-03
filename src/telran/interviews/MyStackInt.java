@@ -10,7 +10,7 @@ public class MyStackInt {
 	
 	public void push(int num) {
 		//adds number into top of stack (LIFO) - last element
-		if(maxValueList.isEmpty() || num > maxValueList.peekLast()) {
+		if(maxValueList.isEmpty() || num >= maxValueList.peekLast()) {
 			maxValueList.addLast(num);
 		} 
 		stackList.push(num);
@@ -23,7 +23,7 @@ public class MyStackInt {
 			throw new RuntimeException("Stack is empty");
 		}
 		int value = stackList.pop();
-		if(maxValueList.peekLast().equals(value) && !maxValueList.peekLast().equals(stackList.peek())) {
+		if(maxValueList.peekLast().equals(value)) {
 			maxValueList.removeLast();
 		}
 		return value;

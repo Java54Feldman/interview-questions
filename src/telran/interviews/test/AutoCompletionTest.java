@@ -12,8 +12,7 @@ import telran.interviews.AutoCompletion;
 class AutoCompletionTest {
 	String[] words = { "ab", "ABC", "avfdr", "aV", "aVV", "aaA" };
 	String[] wordsAb = { "ab", "ABC" };
-	String[] wordsAv = { "aV", "aVV", "avfdr" };
-//	String[] wordsAv = { "avfdr", "aV", "aVV" };
+	String[] wordsAv = { "aV", "avfdr", "aVV" };
 	String[] wordsAa = { "aaA" };
 
 	@Test
@@ -22,19 +21,9 @@ class AutoCompletionTest {
 		for (String word : words) {
 			autoCompletion.addWord(word);
 		}
-		Arrays.sort(wordsAb);
-		Arrays.sort(wordsAv);
-		Arrays.sort(wordsAa);
-		String[] actualAb = autoCompletion.getVariants("ab");
-		String[] actualAv = autoCompletion.getVariants("av");
-		String[] actualAa = autoCompletion.getVariants("aa");
-		Arrays.sort(actualAb);
-		Arrays.sort(actualAv);
-		Arrays.sort(actualAa);
-		
-		assertArrayEquals(wordsAb, actualAb);
-		assertArrayEquals(wordsAv, actualAv);
-		assertArrayEquals(wordsAa, actualAa);
+		assertArrayEquals(wordsAb, autoCompletion.getVariants("ab"));
+		assertArrayEquals(wordsAv, autoCompletion.getVariants("av"));
+		assertArrayEquals(wordsAa, autoCompletion.getVariants("aa"));
 		
 	}
 
