@@ -4,10 +4,10 @@ import java.util.*;
 
 //all methods should have complexity O[1]
 public class MyStackInt {
-	//Data Structure!
+	//Data Structure
 	LinkedList<Integer> stackList = new LinkedList<>();
-	HashSet<Integer> stackSet = new HashSet<>();
 	int maxValue;
+	
 	public void push(int num) {
 		//adds number into top of stack (LIFO) - last element
 		if(isEmpty()) {
@@ -16,7 +16,6 @@ public class MyStackInt {
 			maxValue = num;
 		}
 		stackList.push(num);
-		stackSet.add(num);
 	}
 	public int pop() throws RuntimeException {
 		//removes element from top of stack (last element)
@@ -26,7 +25,6 @@ public class MyStackInt {
 			throw new RuntimeException("Stack is empty");
 		}
 		int value = stackList.pop();
-		stackSet.remove(value);
 		return value;
 	}
 	public int peek() throws RuntimeException {
@@ -47,5 +45,8 @@ public class MyStackInt {
 			throw new RuntimeException("Stack is empty");
 		}
 		return maxValue;
+	}
+	public int size() {
+		return stackList.size();
 	}
 }
