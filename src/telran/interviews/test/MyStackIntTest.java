@@ -55,6 +55,12 @@ class MyStackIntTest {
 		stack.pop();
 		stack.pop();
 		assertEquals(5, stack.getMaxElement());
+		stack.push(1000); 
+		stack.push(1500); 
+		stack.push(2000); 
+		stack.push(2000); 
+		stack.pop(); 
+		assertEquals(2000, stack.getMaxElement());
 		assertThrows(RuntimeException.class, () -> emptyStack.getMaxElement());
 	}
 

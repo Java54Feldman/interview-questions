@@ -23,7 +23,7 @@ public class MyStackInt {
 			throw new RuntimeException("Stack is empty");
 		}
 		int value = stackList.pop();
-		if(maxValueList.peekLast() == value) {
+		if(maxValueList.peekLast().equals(value) && !maxValueList.peekLast().equals(stackList.peek())) {
 			maxValueList.removeLast();
 		}
 		return value;
