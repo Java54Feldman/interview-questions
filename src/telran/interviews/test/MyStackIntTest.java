@@ -2,75 +2,65 @@ package telran.interviews.test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.util.*;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import telran.interviews.MyStackInt;
 
 class MyStackIntTest {
-	MyStackInt stack = new MyStackInt();
-	MyStackInt emptyStack = new MyStackInt();
-
-	@BeforeEach
-	void setUp() {
-		stack.push(5);
-		stack.push(10);
-		stack.push(3);
+private static final long N_ELEMENTS = 1000;
+MyStackInt stack;
+@BeforeEach
+void setUp() {
+	stack = new MyStackInt();
+}
+	@Test
+	void testPush() {
+		stack.push(100);
+		assertEquals(100, stack.getMaxElement());
+		stack.push(200);
+		assertEquals(200, stack.getMaxElement());
+		stack.push(200);
+		assertEquals(200, stack.getMaxElement());
+		stack.pop();
+		assertEquals(200, stack.getMaxElement());
+		
 	}
 
 	@Test
-	public void pushTest() {
-		stack.push(15);
-		assertEquals(4, stack.size());
-		assertEquals(15, stack.getMaxElement());
-		assertEquals(15, stack.peek());
-		assertEquals(15, stack.pop());
+	void testPop() {
+		assertThrowsExactly(EmptyStackException.class, () -> stack.pop());
+		stack.push(100); stack.push(200);
+		assertEquals(200, stack.pop());
+		assertEquals(100, stack.getMaxElement());
 	}
 
 	@Test
-	public void popTest() {
-		assertEquals(3, stack.pop());
-		assertEquals(2, stack.size());
-		assertEquals(10, stack.pop());
-		assertThrows(RuntimeException.class, () -> emptyStack.pop());
+	void testPeek() {
+		assertThrowsExactly(EmptyStackException.class, () -> stack.peek());
+		stack.push(100);
+		assertEquals(100, stack.peek());
 	}
 
 	@Test
-	public void peekTest() {
-		assertEquals(3, stack.peek());
-		assertEquals(3, stack.size());
-		assertThrows(RuntimeException.class, () -> emptyStack.peek());
-	}
-
-	@Test
-	public void isEmptyTest() {
+	void testIsEmpty() {
+		assertTrue(stack.isEmpty());
+		stack.push(0);
 		assertFalse(stack.isEmpty());
-		assertTrue(emptyStack.isEmpty());
-
 	}
 
 	@Test
-	public void getMaxElementTest() {
-		assertEquals(10, stack.getMaxElement());
-		stack.pop();
-		stack.pop();
-		assertEquals(5, stack.getMaxElement());
-		stack.push(1000); 
-		stack.push(1500); 
-		stack.push(2000); 
-		stack.push(2000); 
-		stack.pop(); 
-		assertEquals(2000, stack.getMaxElement());
-		assertThrows(RuntimeException.class, () -> emptyStack.getMaxElement());
-	}
-
-	@Test
-	public void sizeTest() {
-		assertEquals(0, emptyStack.size());
-		stack.push(15);
-		assertEquals(4, stack.size());
-		stack.pop();
-		assertEquals(3, stack.size());
+	void testGetMaxElement() {
+		int[] randomAr = new Random().ints().limit(N_ELEMENTS).toArray();
+		TreeSet<Integer> treeSet = new TreeSet<>();
+		assertThrowsExactly(EmptyStackException.class, () -> stack.getMaxElement());
+		for(int num: randomAr) {
+			stack.push(num);
+			treeSet.add(num);
+		}
+		assertEquals(treeSet.last(), stack.getMaxElement());
 	}
 
 }
