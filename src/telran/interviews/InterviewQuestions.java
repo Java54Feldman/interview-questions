@@ -78,22 +78,47 @@ public class InterviewQuestions {
 						(v1, v2) -> v1, LinkedHashMap::new));
 		return res;
 	}
-	public static boolean isAnagram(String word, String Anagram) {
-		//TODO
+	public static boolean isAnagram(String word, String anagram) {
 		//O[N], 2 pass over
 		//sorting is disallowed
 		//returns true if anagram string contains all letters from word
 		//in another order (case sensitive)
-		return false;
+		boolean res = false;
+		if(!word.equals(anagram) && (word.length() == anagram.length())) {
+			Map<String, Long> lettersCounts = Arrays.stream(word.split(""))
+					.collect(Collectors.groupingBy(n -> n, Collectors.counting()));
+			String[] anagramArr = anagram.split("");
+			int i = 0;
+			while (i < anagramArr.length 
+					&& lettersCounts.containsKey(anagramArr[i]) 
+					&& lettersCounts.get(anagramArr[i]) != 0) {
+				lettersCounts.put(anagramArr[i], lettersCounts.get(anagramArr[i]) - 1);
+				i++;
+			}
+			if (lettersCounts.values().stream().allMatch(v -> v == 0)) {
+				res = true;
+			}
+		}
+		return res;
 	}
 	public static List<DateRole> assignRoleDates(List<DateRole> rolesHistory, List<LocalDate> dates) {
-		//TODO
 		//create List<DateRole> with roles matching with the given dates
 		//most effective data structure
-		return null;
+        List<DateRole> result = new LinkedList<>();
+        TreeMap<LocalDate, String> roleMap = new TreeMap<>(); 
+        for (DateRole role : rolesHistory) {
+            roleMap.put(role.date(), role.role());
+        }
+        for (LocalDate date : dates) {
+        	String role = null;
+        	if(roleMap.floorEntry(date) != null) {
+        		role = roleMap.floorEntry(date).getValue();
+        	}
+            result.add(new DateRole(date, role));
+        }
+        return result;
 	}
 	public static void displayDigitStatistics() {
-		//TODO
 		//display out statistics in the following format (example)
 		/* 1 -> .......
 		 * 2 -> .......
@@ -102,5 +127,10 @@ public class InterviewQuestions {
 		//sorted by counts of occurrences in the descending order
 		//takes 1_000_000 random numbers in range [0-Integer.MAX_VALUE)
 		//one pipeline with no additional yours methods
+		new Random().ints(1_000_000, 0, Integer.MAX_VALUE)
+			.flatMap(i -> String.valueOf(i).chars().map(Character::getNumericValue)).boxed()
+			.collect(Collectors.groupingBy(n -> n, Collectors.counting()))
+			.entrySet().stream().sorted(Map.Entry.<Integer, Long>comparingByValue().reversed())
+			.forEach(e -> System.out.println(e.getKey() + " -> " + e.getValue()));
 	}
 }
