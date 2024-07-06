@@ -87,17 +87,31 @@ public class InterviewQuestions {
 		if(!word.equals(anagram) && (word.length() == anagram.length())) {
 			Map<String, Long> lettersCounts = Arrays.stream(word.split(""))
 					.collect(Collectors.groupingBy(n -> n, Collectors.counting()));
-			String[] anagramArr = anagram.split("");
-			int i = 0;
-			while (i < anagramArr.length 
-					&& lettersCounts.containsKey(anagramArr[i]) 
-					&& lettersCounts.get(anagramArr[i]) != 0) {
-				lettersCounts.put(anagramArr[i], lettersCounts.get(anagramArr[i]) - 1);
-				i++;
+			
+			//V.R. solution start
+			res = true;
+			char[] anagramChars = anagram.toCharArray();
+			int index = 0;
+			while (index < anagramChars.length && res){
+				if (lettersCounts.compute(String.valueOf(anagramChars[index++]), (k, v) -> v == null ? -1 : v - 1 ) < 0 ) {
+					res = false;
+				}			
 			}
-			if (lettersCounts.values().stream().allMatch(v -> v == 0)) {
-				res = true;
-			}
+			//V.R. solution end
+			
+			//my solution
+//			String[] anagramArr = anagram.split("");
+//			int i = 0;
+//			while (i < anagramArr.length 
+//					&& lettersCounts.containsKey(anagramArr[i]) 
+//					&& lettersCounts.get(anagramArr[i]) != 0) {
+//				lettersCounts.put(anagramArr[i], lettersCounts.get(anagramArr[i]) - 1);
+//				i++;
+//			}
+//
+//			if (lettersCounts.values().stream().allMatch(v -> v == 0)) {
+//				res = true;
+//			}
 		}
 		return res;
 	}
