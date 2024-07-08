@@ -115,6 +115,6 @@ class InterviewQuestionsTests {
 	}
 	@Test
 	void displayDigitsStatisticsTest() {
-		displayDigitStatistics();
+		displayDigitsStatistics();
 	}
 }
